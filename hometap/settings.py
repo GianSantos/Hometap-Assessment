@@ -129,4 +129,5 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-HOUSE_CANARY_URL = 'https://api.housecanary.com/v2/property/details'
+# if deployed use an actual url, but for local use, use mocker server url
+HOUSE_CANARY_URL = 'https://d67508d8-2a47-4cd4-a366-5bf30279adbb.mock.pstmn.io/v2/property/details'
