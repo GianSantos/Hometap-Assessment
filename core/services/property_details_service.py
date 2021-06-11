@@ -5,7 +5,7 @@ from core.models import PropertyDetail
 
 def property_details(street_address: str, zipcode: str) -> PropertyDetail:
     '''
-    Service method 
+    Service method that will perform the logic for the view, creating/querying propertydetail or calling client to request data from API
     '''
     home = PropertyDetail.objects.filter(street_address=street_address, zipcode=zipcode).first()
     if home:
@@ -20,7 +20,7 @@ def property_details(street_address: str, zipcode: str) -> PropertyDetail:
 
 def has_septic_system(street_address: str, zipcode: str) -> bool:
     '''
-    
+    Service method that calls on property_details to receive PropertyDetail and determine if property has a septic system
     '''
     data = property_details(street_address, zipcode)
     septic_system = data.sewer

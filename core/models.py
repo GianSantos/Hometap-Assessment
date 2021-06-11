@@ -3,7 +3,9 @@ from django.db import models
 # Create your models here.
 
 class PropertyDetail(models.Model):
+    # model to save/query property details instead of requesting from API all the time
     class Meta:
+        # One property per address and zipcode
         unique_together = ['street_address', 'zipcode']
 
     street_address = models.CharField(max_length=100)
@@ -44,6 +46,9 @@ class PropertyDetail(models.Model):
 
     @classmethod
     def from_data(cls, data):
+        '''
+        Mapping data received to an instance without saving.
+        '''
         instance = cls(street_address=data['street_address'], zipcode=data['zipcode'])
         data = data['result']['property']
         instance.air_conditioning = data['air_conditioning']

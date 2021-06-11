@@ -5,6 +5,9 @@ import json
 
 
 def get_property_details(street_address: str, zipcode: str) -> dict:
+    '''
+    Client method calls API for property details data, and returns the serialized data
+    '''
     url = settings.HOUSE_CANARY_URL
     response = requests.get(url, params={'address': street_address, 'zipcode': zipcode})
     property_details = response.json()
@@ -14,6 +17,7 @@ def get_property_details(street_address: str, zipcode: str) -> dict:
     return serializer.data
 
 
+# Nested serializers to serialize the nested json received from API
 class PropertySerializer(serializers.Serializer):
     air_conditioning = serializers.CharField(max_length=100)
     attic = serializers.BooleanField()

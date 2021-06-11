@@ -8,19 +8,20 @@ from rest_framework import serializers
 
 
 class PropertyDetailsView(GenericViewSet):
+    '''
+    Viewset for all views correlating with PropertyDetails, must be authenticated to hit this endpoint
+    '''
     permission_classes = (IsAuthenticated, )
 
     @action(detail=False, methods=['get'])
     def septic_system(self, request):
+        '''
+        View for determining if given propertyDetail at address and zipcode has a septic system,
+        and returns true or false. Address and zipcode parameters are required.
+        '''
         address = request.query_params.get('address')
         zipcode = request.query_params.get('zipcode')
         if zipcode is None or address is None:
             return Response('Required Params not received', status=HTTP_400_BAD_REQUEST)
         septic_system = has_septic_system(address, zipcode)
         return Response({"has_septic_system": septic_system}, status=HTTP_200_OK)
-
-
-# create serializer to validate params
-class PropertyDetailRequestSerializer(serializers.Serializer):
-    address = serializers.CharField(max_length=100)
-    zipcode = serializers.CharField(max_length=100)
