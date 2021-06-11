@@ -5,7 +5,8 @@ from core.models import PropertyDetail
 
 def property_details(street_address: str, zipcode: str) -> PropertyDetail:
     '''
-    Service method that will perform the logic for the view, creating/querying propertydetail or calling client to request data from API
+    Service method that will perform the logic for the view, creating/querying propertydetail or calling client to request data from API,
+    storing and querying PropertyDetails will help lessen calls to the third party API
     '''
     home = PropertyDetail.objects.filter(street_address=street_address, zipcode=zipcode).first()
     if home:
